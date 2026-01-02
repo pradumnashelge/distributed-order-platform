@@ -1,0 +1,48 @@
+# Visual Studio and Rider
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+out/
+publish/
+
+# EF Core / local DB files
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# Logs
+Logs/
+logs/
+*.log
+
+# NuGet
+*.nupkg
+packages/
+
+# VS Code
+.vscode/
+
+# Docker
+docker-compose.override.yml
+
+# Environment / secrets
+.env
+secrets.json
+*.Secret.*
+*.UserSecrets.*
+
+# Tooling
+.tools/
+
+# macOS / Windows
+.DS_Store
+Thumbs.db
+desktop.ini
