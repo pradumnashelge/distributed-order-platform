@@ -1,4 +1,4 @@
-namespace OrderService.Infrastructure.Outbox
+﻿namespace OrderService.Infrastructure.Outbox
 {
     /// <summary>
     /// Outbox publisher contract.

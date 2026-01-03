@@ -1,4 +1,4 @@
-using MassTransit;
+﻿using MassTransit;
 using System.Text.Json;
 using OrderService.Domain.Events;
 

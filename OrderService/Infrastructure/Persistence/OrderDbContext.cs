@@ -1,28 +1,32 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderService.Domain.Entities;
+using OrderService.Infrastructure.Outbox;
 
-namespace OrderService.Infrastructure.Persistence
+namespace OrderService.Infrastructure.Persistence;
+
+public class OrderDbContext : DbContext
 {
-    /// <summary>
-    /// EF Core DbContext for orders and outbox messages.
-    /// </summary>
-    public sealed class OrderDbContext : DbContext
+    public OrderDbContext(DbContextOptions<OrderDbContext> options)
+        : base(options)
     {
-        public DbSet<Order> Orders { get; set; } = null!;
-        public DbSet<OutboxMessage> OutboxMessages { get; set; } = null!;
+    }
 
-        public OrderDbContext(DbContextOptions<OrderDbContext> options)
-            : base(options)
+    public DbSet<Order> Orders => Set<Order>();
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Order>(entity =>
         {
-        }
+            entity.HasKey(o => o.Id);
+            entity.Property(o => o.ProductId).IsRequired();
+            entity.Property(o => o.Price).HasColumnType("decimal(18,2)");
+        });
 
-        /// <inheritdoc />
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        modelBuilder.Entity<OutboxMessage>(entity =>
         {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Order>().ToTable("Orders");
-            modelBuilder.Entity<OutboxMessage>().ToTable("OutboxMessages");
-        }
+            entity.HasKey(o => o.Id);
+            entity.Property(o => o.Type).IsRequired();
+        });
     }
 }

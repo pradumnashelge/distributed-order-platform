@@ -1,4 +1,4 @@
-namespace OrderService.Controllers.Models
+﻿namespace OrderService.Controllers.Models
 {
     /// <summary>
     /// Response DTO for created order.

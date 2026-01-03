@@ -1,4 +1,4 @@
-﻿namespace OrderService.Domain.Events;
+﻿namespace PaymentService.Consumers;
 
 public record OrderCreatedEvent(
     Guid OrderId,

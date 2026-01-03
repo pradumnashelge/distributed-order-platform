@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using Confluent.Kafka;
 
@@ -35,12 +35,12 @@ namespace OrderService.Infrastructure.Messaging
             using var _ = cancellationToken.Register(() => { /* noop, Producer's async send not cancellable */ });
 
             var result = await _producer.ProduceAsync(_topic, msg, cancellationToken).ConfigureAwait(false);
-            if (result.Status != PersistenceStatus.Persisted && result.Status != PersistenceStatus.PersistedButUnknown)
+            if (result.Status != PersistenceStatus.Persisted)
             {
                 throw new InvalidOperationException($"Kafka message delivery failed: {result.Status}");
             }
         }
-
+        
         public void Dispose() => _producer.Dispose();
     }
 }
